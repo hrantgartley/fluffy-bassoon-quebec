@@ -3,6 +3,7 @@ const app = express()
 const { MongoClient } = require("mongodb")
 require("dotenv").config()
 
+const port = process.env.PORT || 3000
 const uri = process.env.MONGO_URI
 const client = new MongoClient(uri, {
     useNewUrlParser: true,
@@ -73,7 +74,20 @@ app.post("/createOne", async (_req, res) => {
     }
 })
 
-const port = process.env.PORT || 3000
+app.delete("/deleteOne", async (_req, res) => {
+    try {
+        await client.connect()
+        const database = client.db("sample_airbnb")
+        const collection = database.collection("listingsAndReviews")
+        const result = await collection.deleteOne({
+            name: "Lovely Loft",
+        })
+        res.send("Listing deleted", result.acknowledged)
+    } catch (err) {
+        console.error("Error:", err)
+        res.status(500).json({ error: "Internal Server Error" })
+    }
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
