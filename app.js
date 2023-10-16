@@ -18,7 +18,6 @@ app.get("/", (_req, res) => {
         <a href='localhost:3000/readAll'>Read All</a>
         <a href='localhost:3000/readOne'>Read One</a>
     `
-
     res.send(htmlContent)
 })
 
@@ -71,6 +70,7 @@ app.post("/createOne", async (_req, res) => {
         res.status(500).json({ error: "Internal Server Error" })
     } finally {
         await client.close()
+        // commentn
     }
 })
 
