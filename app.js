@@ -10,6 +10,7 @@ const client = new MongoClient(uri, {
     useUnifiedTopology: true,
 })
 
+// renders basic html page -- bad practice
 app.get("/", (_req, res) => {
     const htmlContent = `
         <div style='border-style: solid; border-width: 5px;'>
